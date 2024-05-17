@@ -66,7 +66,7 @@ class test_net:
                 solamount=float(amount/self.LAMPORT_AMOUNT )                                               #convert the lamport to amount
                 print(f'you are requesting {solamount} SOL.....')
                 self.request_sol=self.client.request_airdrop(self.public_key,amount,)
-                print('amount has been airdroped successfully.......')
+                print(f'{solamount}SOL has been airdroped successfully.......')
                 # conf=self.client.confirm_transaction(self.request_sol.value)
                 time.sleep(20)
                 balance=self.client.get_balance(self.public_key)
@@ -104,4 +104,4 @@ if __name__=="__main__":                                                        
     test=test_net()
     # test.generate_key()
     # test.sol_request(stored.keys)
-    test.get_balance(stored.keys)
+    # test.get_balance(stored.keys)
