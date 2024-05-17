@@ -59,7 +59,7 @@ class test_net:
             try:                                                                           #try to request the sol from the  testnet rpc
                 request_sol=self.client.request_airdrop(self.public_key,amount)
                 print('amount has been airdroped successfully.......')
-                self.client.confirm_transaction(request_sol['result'])
+                
             except SolanaRpcException as e:                                                #exception handler
                 print('Error: too many requests has been made \nTry again after some time',e)
             print(f'Please check your balance' )
