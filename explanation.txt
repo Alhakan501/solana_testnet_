@@ -1,0 +1,7 @@
+call the generate_key method to create a new keypair.
+if you've already created one, the keypair will be written in the info.py file.
+
+call the sol_request method  to airdroped sol to the address you created using the genrate_key()
+if successful,  'amount has been airdroped successfully.......'  will be printed. Else you will be notified of the error.
+
+call get_balance() method to check the sol balance in your account
