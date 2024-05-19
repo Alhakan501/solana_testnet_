@@ -67,8 +67,7 @@ class test_net:
                 print(f'you are requesting {solamount} SOL.....')
                 self.request_sol=self.client.request_airdrop(self.public_key,amount,)
                 print(f'{solamount}SOL has been airdroped successfully.......')
-                # conf=self.client.confirm_transaction(self.request_sol.value)
-                time.sleep(20)
+                conf=self.client.confirm_transaction(self.request_sol.value)
                 balance=self.client.get_balance(self.public_key)
                 print(f'your current balance is {balance.value/self.LAMPORT_AMOUNT} SOL' )
                 
@@ -87,7 +86,6 @@ class test_net:
         this method is responsible for getting the balance of the user from the testnet rpc
         '''
         self.connect_to_rpc(data)
-        time.sleep(15)
         balance=self.client.get_balance(self.public_key)
         print(f'your current balance is  {balance.value/self.LAMPORT_AMOUNT}SOL' )
         
