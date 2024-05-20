@@ -66,8 +66,8 @@ class test_net:
                 solamount=float(amount/self.LAMPORT_AMOUNT )                                               #convert the lamport to amount
                 print(f'you are requesting {solamount} SOL.....')
                 self.request_sol=self.client.request_airdrop(self.public_key,amount,)
-                print(f'{solamount}SOL has been airdroped successfully.......')
                 conf=self.client.confirm_transaction(self.request_sol.value)
+                print(f'{solamount}SOL has been airdroped successfully.......')
                 balance=self.client.get_balance(self.public_key)
                 print(f'your current balance is {balance.value/self.LAMPORT_AMOUNT} SOL' )
                 
