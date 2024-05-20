@@ -15,33 +15,24 @@ class test_net:
         initialize the class
         '''
         self.public_key=''
-        self.testnet_rpc="https://api.testnet.solana.com" #testnet rpc url
-        self.LAMPORT_AMOUNT=1000000000                                                   #lamport amount
+        self.testnet_rpc="https://api.testnet.solana.com"                      #testnet rpc url
+        self.LAMPORT_AMOUNT=1000000000                                         #lamport amount
+        self.client=Client(self.testnet_rpc)                                   #connect to testnet rpc 
 
 
     def generate_key(self):
         '''
         this method generates a key pair and stores it in a file named info.py
         '''
-        keys=Keypair()
+        keys=Keypair()                                                       #generate a key pair
         data=keys.to_json()
         with open("info.py","w") as f:
-            f.write(f'keys={data}')
+            f.write(f'keys={data}')                                           #store the keypair in info.py
        
 
 
-
-
-
-    def connect_to_rpc(self,data)->None:
-        '''
-        this method is responsible connecting to the testnet rpc 
-        and 
-        the retrieval of the keys stored in info.py
-        '''
-        self.client=Client(self.testnet_rpc)
-        obtained_key=Keypair.from_bytes(data)
-        self.public_key=obtained_key.pubkey()
+        
+        
         
     
     
@@ -49,18 +40,17 @@ class test_net:
     
     
 
-    def sol_request(self,data):
+    def sol_request(self):
         '''
         method that requests sol for the user from the testnet rpc
         '''
-        self.connect_to_rpc(data)                                                          #call the connect_to_rpc function and pass the data as args
+        obtained_key=Keypair.from_bytes(stored.keys)                                        #retrieve the key pair from the file 
+        self.public_key=obtained_key.pubkey()                                              
         print('your public key is : ',self.public_key)
-        self.public_key=self.public_key
-        print(self.public_key)
         amount=int(input("Enter lamport amount  you want to request: "))                           # prompt theuser to enter the amount of sol needed
         if amount<=0:                                                                       #check if the amount is positive
             print("Enter a positive amount ")
-            self.sol_request(data)
+            self.sol_request()
         else:
             try:                                                                           #try to request the sol from the  testnet rpc
                 solamount=float(amount/self.LAMPORT_AMOUNT )                                               #convert the lamport to amount
@@ -81,11 +71,12 @@ class test_net:
         
         
         
-    def get_balance(self,data):
+    def get_balance(self):
         '''
         this method is responsible for getting the balance of the user from the testnet rpc
         '''
-        self.connect_to_rpc(data)
+        obtained_key=Keypair.from_bytes(stored.keys)                                     #retrieve the keypair
+        self.public_key=obtained_key.pubkey()
         balance=self.client.get_balance(self.public_key)
         print(f'your current balance is  {balance.value/self.LAMPORT_AMOUNT}SOL' )
         
@@ -97,9 +88,8 @@ class test_net:
         
 
 
-if __name__=="__main__":                                                                   #run the program
-        
+if __name__=="__main__":                                                                    #run the progrm
     test=test_net()
     # test.generate_key()
-    # test.sol_request(stored.keys)
-    # test.get_balance(stored.keys)
+    # test.sol_request()
+    # test.get_balance()
