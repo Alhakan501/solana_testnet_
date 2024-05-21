@@ -56,11 +56,11 @@ class test_net:
                 solamount=float(amount/self.LAMPORT_AMOUNT )                                               #convert the lamport to amount
                 print(f'you are requesting {solamount} SOL.....')
                 self.request_sol=self.client.request_airdrop(self.public_key,amount,)
-                conf=self.client.confirm_transaction(self.request_sol.value)
-                print(f'{solamount}SOL has been airdroped successfully.......')
-                balance=self.client.get_balance(self.public_key)
-                print(f'your current balance is {balance.value/self.LAMPORT_AMOUNT} SOL' )
-                
+                conf=self.client.confirm_transaction(self.request_sol.value,'confirmed')
+                if conf:
+                    print(f'{solamount}SOL has been airdroped successfully.......')
+                else:
+                    print('error while confirming airdrop')
             except SolanaRpcException as e:                                                #exception handler
                 print('Error: too many requests has been made \nTry again after some time',e)
                 sys.exit(1)
@@ -75,6 +75,8 @@ class test_net:
         '''
         this method is responsible for getting the balance of the user from the testnet rpc
         '''
+        print('fetching balance......')
+        time.sleep(15)
         obtained_key=Keypair.from_bytes(stored.keys)                                     #retrieve the keypair
         self.public_key=obtained_key.pubkey()
         balance=self.client.get_balance(self.public_key)
